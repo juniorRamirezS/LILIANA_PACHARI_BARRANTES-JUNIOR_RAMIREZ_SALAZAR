@@ -8,6 +8,8 @@ import com.dh.Clinica.dto.response.TurnoResponseDto;
 import com.dh.Clinica.entity.Odontologo;
 import com.dh.Clinica.entity.Paciente;
 import com.dh.Clinica.entity.Turno;
+import com.dh.Clinica.exception.BadRequestException;
+import com.dh.Clinica.exception.ResourceNotFoundException;
 import com.dh.Clinica.repository.ITurnoRepository;
 import com.dh.Clinica.service.IOdontologoService;
 import com.dh.Clinica.service.IPacienteService;
@@ -37,32 +39,34 @@ public class TurnoService implements ITurnoService {
 
     @Override
     public TurnoResponseDto guardarTurno(TurnoRequestDto turnoRequestDto){
+//        Optional<Paciente> paciente = pacienteService.buscarPorId(turno.getPaciente().getId());
+//        Optional<Odontologo> odontologo = odontologoService.buscarPorId(turno.getOdontologo().getId());
+
         Optional<Paciente> paciente = pacienteService.buscarPorId(turnoRequestDto.getPaciente_id());
         Optional<Odontologo> odontologo = odontologoService.buscarPorId(turnoRequestDto.getOdontologo_id());
-        Turno turno = new Turno();
+        Turno turnoAPersistir = new Turno();
         Turno turnoDesdeBD = null;
         TurnoResponseDto turnoResponseDto = null;
+        //aqui armamos el "turno", ya que recibimos el tipo "turnoRequestDto"
         if(paciente.isPresent() && odontologo.isPresent()){
-            // el armado del turno desde el turno request dto
-            turno.setPaciente(paciente.get());
-            turno.setOdontologo(odontologo.get());
-            turno.setFecha(LocalDate.parse(turnoRequestDto.getFecha()));
-
-            // aca obtengo el turno persistido con el id
-            turnoDesdeBD = turnoRepository.save(turno);
-
-            // armado del turno response dto desde el turno obtenido de la base de datos
-            // armado a mano
-            // turnoResponseDto = obtenerTurnoResponse(turnoDesdeBD);
-            // armado con modelmapper
+            // el .get() nos da el objeto paciente u odontologo sin el tipo de optional
+            turnoAPersistir.setPaciente(paciente.get());
+            turnoAPersistir.setOdontologo(odontologo.get());
+            turnoAPersistir.setFecha(LocalDate.parse(turnoRequestDto.getFecha())); //para convertir un string en fecha
+            turnoDesdeBD = turnoRepository.save(turnoAPersistir);
             turnoResponseDto = convertirTurnoEnResponse(turnoDesdeBD);
+            return turnoResponseDto;
+        } else {
+            throw new BadRequestException("Turno no guardado");
         }
-        return turnoResponseDto;
+
     }
 
     @Override
-    public Optional<Turno> buscarPorId(Integer id) {
-        return turnoRepository.findById(id);
+    public Optional<TurnoResponseDto> buscarPorId(Integer id) {
+        Optional<Turno> turno = turnoRepository.findById(id);
+        TurnoResponseDto turnoRespuesta = convertirTurnoEnResponse(turno.get());
+        return Optional.of(turnoRespuesta);
     }
 
     @Override
@@ -90,21 +94,33 @@ public class TurnoService implements ITurnoService {
             turnoRepository.save(turno);
         }
     }
-
+//    @Override
+//    public void eliminarTurno(Integer id){
+//        Optional<TurnoResponseDto> turnoEncontrado = buscarPorId(id);
+//        if(turnoEncontrado.isPresent()) {
+//            turnoRepository.deleteById(id);
+//        } else {
+//            throw new ResourceNotFoundException("Turno no encontrado");
+//        }
+//    }
 
     @Override
     public void eliminarTurno(Integer id){
-        turnoRepository.deleteById(id);
+        Optional<Turno> turnoEncontrado = turnoRepository.findById(id);
+        if(turnoEncontrado.isPresent()){
+            turnoRepository.deleteById(id);
+        } else {
+            throw new ResourceNotFoundException("Turno no encontrado");
+        }
+
     }
 
-    @Override
-    public Optional<Turno> buscarTurnosPorPaciente(String pacienteApellido) {
-        return turnoRepository.buscarPorApellidoPaciente(pacienteApellido);
-    }
+
+    //FUNCIONES PAR AHACER LA CONVERSION A OBJETOS DTO
 
     private TurnoResponseDto obtenerTurnoResponse(Turno turnoDesdeBD){
         OdontologoResponseDto odontologoResponseDto = new OdontologoResponseDto(
-                turnoDesdeBD.getOdontologo().getId(), turnoDesdeBD.getOdontologo().getNroMatricula(),
+                turnoDesdeBD.getOdontologo().getId(), turnoDesdeBD.getOdontologo().getNumeroDeMatricula(),
                 turnoDesdeBD.getOdontologo().getApellido(), turnoDesdeBD.getOdontologo().getNombre()
         );
         PacienteResponseDto pacienteResponseDto = new PacienteResponseDto(
@@ -120,6 +136,7 @@ public class TurnoService implements ITurnoService {
     }
 
     private TurnoResponseDto convertirTurnoEnResponse(Turno turno){
+        //PAQUETE OBTENIDO DESDE MAVEN REPOSITORY
         TurnoResponseDto turnoResponseDto = modelMapper.map(turno, TurnoResponseDto.class);
         turnoResponseDto.setPacienteResponseDto(modelMapper.map(turno.getPaciente(), PacienteResponseDto.class));
         turnoResponseDto.setOdontologoResponseDto(modelMapper.map(turno.getOdontologo(), OdontologoResponseDto.class));

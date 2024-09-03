@@ -1,13 +1,21 @@
 package com.dh.Clinica.controller;
 
-import com.dh.Clinica.entity.Paciente;
-import com.dh.Clinica.service.IPacienteService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.dh.Clinica.entity.Paciente;
+import com.dh.Clinica.service.IPacienteService;
 
 @RestController
 @RequestMapping("/paciente")
@@ -41,14 +49,8 @@ public class PacienteController {
     //DELETE
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String> eliminarPaciente(@PathVariable Integer id){
-        Optional<Paciente>  pacienteEncontrado = pacienteService.buscarPorId(id);
-        if(pacienteEncontrado.isPresent()) {
-            pacienteService.eliminarPaciente(id);
-            String jsonResponse = "{\"mensaje\": \"El paciente fue eliminado\"}";
-            return ResponseEntity.ok(jsonResponse);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        pacienteService.eliminarPaciente(id);
+        return ResponseEntity.ok("{\"mensaje\": \"El paciente fue eliminado\"}");
     }
 
     //GET

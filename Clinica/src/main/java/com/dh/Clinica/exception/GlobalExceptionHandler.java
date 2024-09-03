@@ -34,4 +34,18 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiError);
     }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ApiError> solicitudInvalida(BadRequestException e, HttpServletRequest request){
+        ApiError apiError = new ApiError(
+                request.getRequestURI(),
+                e.getMessage(),
+                HttpStatus.BAD_REQUEST.value(),
+                ZonedDateTime.now(),
+                List.of()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
+    }
+
+
 }

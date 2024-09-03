@@ -1,6 +1,7 @@
 package com.dh.Clinica.service.impl;
 
 import com.dh.Clinica.entity.Paciente;
+import com.dh.Clinica.exception.BadRequestException;
 import com.dh.Clinica.exception.ResourceNotFoundException;
 import com.dh.Clinica.repository.IPacienteRepository;
 import com.dh.Clinica.service.IPacienteService;
@@ -19,7 +20,16 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public Paciente guardarPaciente(Paciente paciente) {
-        return pacienteRepository.save(paciente);
+
+//        try {
+//            if(paciente.){
+//
+//            }
+            return pacienteRepository.save(paciente);
+//        } catch (Exception e) {
+//            throw new BadRequestException("Error al guardar paciente");
+//        }
+
     }
 
     @Override

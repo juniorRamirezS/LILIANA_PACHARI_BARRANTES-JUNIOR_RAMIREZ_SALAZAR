@@ -8,6 +8,8 @@ import com.dh.Clinica.dto.response.TurnoResponseDto;
 import com.dh.Clinica.entity.Odontologo;
 import com.dh.Clinica.entity.Paciente;
 import com.dh.Clinica.entity.Turno;
+import com.dh.Clinica.exception.BadRequestException;
+import com.dh.Clinica.exception.ResourceNotFoundException;
 import com.dh.Clinica.repository.ITurnoRepository;
 import com.dh.Clinica.service.IOdontologoService;
 import com.dh.Clinica.service.IPacienteService;
@@ -39,6 +41,7 @@ public class TurnoService implements ITurnoService {
     public TurnoResponseDto guardarTurno(TurnoRequestDto turnoRequestDto){
 //        Optional<Paciente> paciente = pacienteService.buscarPorId(turno.getPaciente().getId());
 //        Optional<Odontologo> odontologo = odontologoService.buscarPorId(turno.getOdontologo().getId());
+
         Optional<Paciente> paciente = pacienteService.buscarPorId(turnoRequestDto.getPaciente_id());
         Optional<Odontologo> odontologo = odontologoService.buscarPorId(turnoRequestDto.getOdontologo_id());
         Turno turnoAPersistir = new Turno();
@@ -52,8 +55,11 @@ public class TurnoService implements ITurnoService {
             turnoAPersistir.setFecha(LocalDate.parse(turnoRequestDto.getFecha())); //para convertir un string en fecha
             turnoDesdeBD = turnoRepository.save(turnoAPersistir);
             turnoResponseDto = convertirTurnoEnResponse(turnoDesdeBD);
+            return turnoResponseDto;
+        } else {
+            throw new BadRequestException("Turno no guardado");
         }
-        return turnoResponseDto;
+
     }
 
     @Override
@@ -88,9 +94,25 @@ public class TurnoService implements ITurnoService {
             turnoRepository.save(turno);
         }
     }
+//    @Override
+//    public void eliminarTurno(Integer id){
+//        Optional<TurnoResponseDto> turnoEncontrado = buscarPorId(id);
+//        if(turnoEncontrado.isPresent()) {
+//            turnoRepository.deleteById(id);
+//        } else {
+//            throw new ResourceNotFoundException("Turno no encontrado");
+//        }
+//    }
+
     @Override
     public void eliminarTurno(Integer id){
-        turnoRepository.deleteById(id);
+        Optional<Turno> turnoEncontrado = turnoRepository.findById(id);
+        if(turnoEncontrado.isPresent()){
+            turnoRepository.deleteById(id);
+        } else {
+            throw new ResourceNotFoundException("Turno no encontrado");
+        }
+
     }
 
 

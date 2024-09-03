@@ -2,6 +2,7 @@ package com.dh.Clinica.entity;
 
 import com.dh.Clinica.utils.GsonProvider;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,8 +31,8 @@ public class Paciente {
     private Domicilio domicilio;
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.REMOVE)
-    //@JsonManagedReference(value = "paciente-turno")
-    @JsonIgnore
+    @JsonManagedReference(value = "paciente-turno")
+    //@JsonIgnore
     private Set<Turno> turnoSet;
 
     @Override

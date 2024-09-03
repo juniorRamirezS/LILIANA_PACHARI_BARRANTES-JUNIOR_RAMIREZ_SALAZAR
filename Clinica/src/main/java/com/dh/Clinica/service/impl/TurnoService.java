@@ -115,6 +115,11 @@ public class TurnoService implements ITurnoService {
 
     }
 
+    @Override
+    public Optional<Turno> buscarTurnosPorPaciente(String pacienteApellido) {
+        return Optional.empty();
+    }
+
 
     //FUNCIONES PAR AHACER LA CONVERSION A OBJETOS DTO
 

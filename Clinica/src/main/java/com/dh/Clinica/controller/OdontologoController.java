@@ -71,6 +71,4 @@ public class OdontologoController {
     public ResponseEntity<List<Odontologo>> ordenarApellido(){
         return ResponseEntity.ok(odontologoService.ordenarPorApellido());
     }
-
-
 }

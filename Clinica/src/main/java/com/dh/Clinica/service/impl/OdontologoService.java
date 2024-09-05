@@ -1,30 +1,44 @@
 package com.dh.Clinica.service.impl;
 
 import com.dh.Clinica.entity.Odontologo;
+import com.dh.Clinica.exception.BadRequestException;
 import com.dh.Clinica.exception.ResourceNotFoundException;
 import com.dh.Clinica.repository.IOdontologoRepository;
 import com.dh.Clinica.service.IOdontologoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class OdontologoService implements IOdontologoService {
-    private IOdontologoRepository odontologoRepository;
 
-    public OdontologoService(IOdontologoRepository odontologoRepository) {
-        this.odontologoRepository = odontologoRepository;
-    }
+    private final Logger logger = LoggerFactory.getLogger(OdontologoService.class);
+
+    @Autowired
+    private IOdontologoRepository odontologoRepository;
 
     @Override
     public Odontologo guardarOdontologo(Odontologo odontologo) {
-        return odontologoRepository.save(odontologo);
+        if (Objects.nonNull(odontologo)) {
+            return odontologoRepository.save(odontologo);
+        } else {
+            throw new BadRequestException("Error al guardar odontologo");
+        }
     }
 
     @Override
     public Optional<Odontologo> buscarPorId(Integer id) {
-        return odontologoRepository.findById(id);
+        Optional<Odontologo> odontologoEncontrado = odontologoRepository.findById(id);
+        if (odontologoEncontrado.isPresent()) {
+            return odontologoEncontrado;
+        } else {
+            throw new ResourceNotFoundException("Odontologo no encontrado");
+        }
     }
 
     @Override
@@ -41,7 +55,7 @@ public class OdontologoService implements IOdontologoService {
     @Override
     public void eliminarOdontologo(Integer id) {
         Optional<Odontologo> odontologoEncontrado = buscarPorId(id);
-        if(odontologoEncontrado.isPresent()){
+        if (odontologoEncontrado.isPresent()) {
             odontologoRepository.deleteById(id);
         } else {
             throw new ResourceNotFoundException("odontologo no encontrado");

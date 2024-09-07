@@ -14,7 +14,7 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <title>Agregar Paciente</title>
+    <title>Agregar odontólogo</title>
   </head>
   <body>
     <nav
@@ -49,17 +49,16 @@
               <ul class="dropdown-menu">
                 <li>
                   <a class="dropdown-item" href="listar_pacientes.html"
-                    >Listar Pacientes</a
+                    >Listar Paciente</a
                   >
                 </li>
                 <li>
                   <a class="dropdown-item" href="agregar_pacientes.html"
-                    >Agregar Pacientes</a
+                    >Agregar Paciente</a
                   >
                 </li>
               </ul>
             </li>
-
             
             <li class="nav-item dropdown">
               <a
@@ -73,8 +72,8 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" href="listar_odontologo.html">Listar odontólogos</a>
-                </li>      
+                  <a class="dropdown-item" href="listar_odontologo.html">Listar odontólogo</a>
+                </li>
                 <li>
                   <a class="dropdown-item" href="agregar_odontologo.html">Agregar odontólogo</a>
                 </li>
@@ -85,45 +84,39 @@
       </div>
     </nav>
     <div class="container">
-      <h1 class="mt-5">Agregar Paciente</h1>
-      <form id="agregarForm">
-        <div class="mb-3">
-          <label for="apellido" class="form-label">Apellido</label>
-          <input type="text" class="form-control" id="apellido" required />
-        </div>
-        <div class="mb-3">
-          <label for="nombre" class="form-label">Nombre</label>
-          <input type="text" class="form-control" id="nombre" required />
-        </div>
-        <div class="mb-3">
-          <label for="dni" class="form-label">DNI</label>
-          <input type="text" class="form-control" id="dni" required />
-        </div>
-        <div class="mb-3">
-          <label for="fecha" class="form-label">Fecha de Ingreso:</label>
-          <input type="date" class="form-control" id="fecha" required />
-        </div>
-        <div class="mb-3">
-          <label for="calle" class="form-label">Calle:</label>
-          <input type="text" class="form-control" id="calle" required />
-        </div>
-        <div class="mb-3">
-          <label for="numero" class="form-label">Numero:</label>
-          <input type="number" class="form-control" id="numero" required />
-        </div>
-        <div class="mb-3">
-          <label for="localidad" class="form-label">Localidad:</label>
-          <input type="text" class="form-control" id="localidad" required />
-        </div>
-        <div class="mb-3">
-          <label for="provincia" class="form-label">Provincia:</label>
-          <input type="text" class="form-control" id="provincia" required />
+     
+      <div class="row">   
+        <div class="col-md-2"></div>    
+        <div class="col-md-8">
+          <h1 class="mt-5 mb-4">Agregar odontólogo</h1>
+          <form id="agregarFormOdont" class="">
+
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" required />
+            </div>
+    
+            <div class="mb-3">
+              <label for="apellido" class="form-label">Apellido</label>
+              <input type="text" class="form-control" id="apellido" required />
+            </div>
+    
+            <div class="mb-3">
+              <label for="matricula" class="form-label">Nro. de matrícula</label>
+              <input type="text" class="form-control" id="matricula" required />
+            </div>
+    
+    
+            <button type="submit" class="btn btn-primary ">Agregar</button>
+          </form>
         </div>
 
-        <button type="submit" class="btn btn-primary">Agregar</button>
-      </form>
+        <div class="col-md-2"></div>
+      </div>
+
+     
     </div>
 
-    <script src="js/agregarPacientes.js"></script>
+    <script src="js/agregarOdontologos.js"></script>
   </body>
 </html>

@@ -61,43 +61,37 @@
             </li>
 
             <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Gestión de odontólogos
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" href="listar_odontologo.html">Listar odontólogos</a>
-                </li>      
-                <li>
-                  <a class="dropdown-item" href="agregar_odontologo.html">Agregar odontólogo</a>
-                </li>
-              </ul>
-            </li>
-
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Gestión de odontólogos
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="listar_odontologo.html">Listar odontólogos</a>
+                  </li>      
+                  <li>
+                    <a class="dropdown-item" href="agregar_odontologo.html">Agregar odontólogo</a>
+                  </li>
+                </ul>
+              </li>
           </ul>
         </div>
       </div>
     </nav>
     <div class="container-xl">
-      <h1 class="mt-5">Pacientes</h1>
-      <table class="table table-striped-columns" id="pacienteTable">
+      <h1 class="mt-5 mb-4">Odontólogos</h1>
+      <table class="table table-striped-columns" id="odontologoTable">
         <thead>
           <tr>
             <th>Orden</th>
-            <th>Apellido</th>
             <th>Nombre</th>
-            <th>DNI</th>
-            <th>Fecha de Ingreso</th>
-            <th>Calle</th>
-            <th>Numero</th>
-            <th>Localidad</th>
-            <th>Provincia</th>
+            <th>Apellido</th>
+            <th>Número de matrícula</th>         
           </tr>
         </thead>
         <tbody></tbody>
@@ -114,7 +108,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="editModalLabel">Modificar Paciente</h5>
+            <h5 class="modal-title" id="editModalLabel">Modificar Odontólogo</h5>
             <button
               type="button"
               class="btn-close"
@@ -126,71 +120,30 @@
             <form id="editForm">
               <div class="mb-3">
                 <div class="mb-3">
-                  <label for="editApellido" class="form-label">Apellido</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="editApellido"
-                    required
-                  />
-                </div>
-                <label for="editNombre" class="form-label">Nombre</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="editNombre"
-                  required
-                />
+                    <label for="editNombre" class="form-label">Nombre</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="editNombre"
+                      required
+                    />
+                </div>                
+
+                <div class="mb-3">
+                    <label for="editApellido" class="form-label">Apellido</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="editApellido"
+                      required
+                    />
+                  </div>
               </div>
               <div class="mb-3">
-                <label for="editDni" class="form-label">DNI</label>
-                <input type="text" class="form-control" id="editDni" required />
+                <label for="editNumeroDeMatricula" class="form-label">Número de matrícula</label>
+                <input type="text" class="form-control" id="editNumeroDeMatricula" required />
               </div>
-              <div class="mb-3">
-                <label for="editFecha" class="form-label">Fecha</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  id="editFecha"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="editCalle" class="form-label">Calle</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="editCalle"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="editNumero" class="form-label">Numero</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="editNumero"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="editLocalidad" class="form-label">Localidad</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="editLocalidad"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="editProvincia" class="form-label">Provincia</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="editProvincia"
-                  required
-                />
-              </div>
+             
               <button type="submit" class="btn btn-primary">
                 Guardar cambios
               </button>
@@ -200,6 +153,6 @@
       </div>
     </div>
 
-    <script src="js/listarPacientes.js"></script>
+    <script src="js/listarOdontologos.js"></script>
   </body>
 </html>

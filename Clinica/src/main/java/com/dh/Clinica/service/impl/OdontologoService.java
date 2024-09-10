@@ -35,6 +35,7 @@ public class OdontologoService implements IOdontologoService {
     public Optional<Odontologo> buscarPorId(Integer id) {
         Optional<Odontologo> odontologoEncontrado = odontologoRepository.findById(id);
         if (odontologoEncontrado.isPresent()) {
+            logger.info("Odontologo " + odontologoEncontrado);
             return odontologoEncontrado;
         } else {
             throw new ResourceNotFoundException("Odontologo no encontrado");
@@ -43,6 +44,7 @@ public class OdontologoService implements IOdontologoService {
 
     @Override
     public List<Odontologo> buscarTodos() {
+        logger.info("Paciente " + odontologoRepository.findAll());
         return odontologoRepository.findAll();
     }
 

@@ -1,5 +1,6 @@
 package com.dh.Clinica;
 
+
 import com.dh.Clinica.entity.Domicilio;
 import com.dh.Clinica.entity.Paciente;
 import com.dh.Clinica.service.impl.PacienteService;
@@ -29,26 +30,26 @@ class PacienteServiceTest {
     Paciente pacienteDesdeDb;
 
     @BeforeEach
-    void cargarDatos() {
-        Domicilio domicilio = new Domicilio(null, "Falsa", 145, "CABA", "Buenos Aires");
+    void cargarDatos(){
+        Domicilio domicilio = new Domicilio(null,"Falsa",145,"CABA","Buenos Aires");
         paciente = new Paciente();
         paciente.setApellido("Castro");
         paciente.setNombre("Maria");
         paciente.setDni("48974646");
-        paciente.setFechaIngreso(LocalDate.of(2024, 7, 15));
+        paciente.setFechaIngreso(LocalDate.of(2024,7,15));
         paciente.setDomicilio(domicilio);
         pacienteDesdeDb = pacienteService.guardarPaciente(paciente);
     }
 
     @Test
     @DisplayName("Testear que un paciente fue cargado correctamente con su domicilio")
-    void caso1() {
+    void caso1(){
         assertNotNull(pacienteDesdeDb.getId());
     }
 
     @Test
     @DisplayName("Testear que un paciente pueda acceder por id")
-    void caso2() {
+    void caso2(){
         //Dado
         Integer id = pacienteDesdeDb.getId();
         //cuando
@@ -59,7 +60,7 @@ class PacienteServiceTest {
 
     @Test
     @DisplayName("Listar todos los pacientes")
-    void caso3() {
+    void caso3(){
         //Dado
         List<Paciente> pacientes;
         // cuando

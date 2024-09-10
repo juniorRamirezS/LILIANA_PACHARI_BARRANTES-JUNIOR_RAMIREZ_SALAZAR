@@ -27,11 +27,12 @@ class OdontologoServiceTest {
     Odontologo odontologoDesdeDb;
 
     @BeforeEach
-    void cargarDatos() {
+    void cargarDatos(){
         odontologo = new Odontologo();
-        odontologo.setApellido("Flores");
-        odontologo.setNombre("Jose");
+        odontologo.setApellido("Rodriguez");
+        odontologo.setNombre("Rosa");
         odontologo.setNumeroDeMatricula("48974646");
+
         odontologoDesdeDb = odontologoService.guardarOdontologo(odontologo);
     }
 
@@ -62,4 +63,5 @@ class OdontologoServiceTest {
         // entonces
         assertFalse(odontologos.isEmpty());
     }
+
 }

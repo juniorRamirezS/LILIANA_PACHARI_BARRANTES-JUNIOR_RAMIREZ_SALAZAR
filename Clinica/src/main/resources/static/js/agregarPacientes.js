@@ -1,4 +1,5 @@
 const form = document.getElementById("agregarForm");
+//const apiURL = "http://localhost:8080";
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();

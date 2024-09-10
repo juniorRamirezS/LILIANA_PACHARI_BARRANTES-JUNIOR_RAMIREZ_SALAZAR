@@ -1,3 +1,4 @@
+//const apiURL = "http://localhost:8080";
 
 // Obtener la referencia a la tabla y al modal
 const tableBody = document.querySelector("#pacienteTable tbody");
@@ -31,7 +32,7 @@ function fetchPacientes() {
               <td>${paciente.domicilio.localidad}</td>
               <td>${paciente.domicilio.provincia}</td>
               <td>
-                <button class="btn btn-primary btn-sm" onclick="editPaciente(${paciente.id}, '${paciente.apellido}','${paciente.nombre}', '${paciente.dni}',
+                <button class="btn btn-primary btn-sm" onclick="editPaciente(${paciente.id}, '${paciente.apellido}','${paciente.nombre}', '${paciente.dni}', 
                 '${paciente.fechaIngreso}', '${paciente.domicilio.id}', '${paciente.domicilio.calle}', '${paciente.domicilio.numero}', '${paciente.domicilio.localidad}', '${paciente.domicilio.provincia}')">Modificar</button>
                 <button class="btn btn-danger btn-sm" onclick="deletePaciente(${paciente.id})">Eliminar</button>
               </td>

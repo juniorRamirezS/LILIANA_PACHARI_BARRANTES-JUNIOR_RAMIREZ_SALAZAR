@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,11 +19,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @Transactional
-public class OdontologoServiceTest {
+class OdontologoServiceTest {
     static final Logger logger = LoggerFactory.getLogger(OdontologoServiceTest.class);
     @Autowired
     OdontologoService odontologoService;
-
     Odontologo odontologo;
     Odontologo odontologoDesdeDb;
 
@@ -40,13 +38,13 @@ public class OdontologoServiceTest {
 
     @Test
     @DisplayName("Testear que un odontologo fue cargado correctamente")
-    void caso1(){
+    void caso1() {
         assertNotNull(odontologoDesdeDb.getId());
     }
 
     @Test
     @DisplayName("Testear que un odontologo pueda acceder por id")
-    void caso2(){
+    void caso2() {
         //Dado
         Integer id = odontologoDesdeDb.getId();
         //cuando
@@ -56,8 +54,8 @@ public class OdontologoServiceTest {
     }
 
     @Test
-    @DisplayName("Listar todos los odontologos")
-    void caso3(){
+    @DisplayName("Listar todos los odontologo")
+    void caso3() {
         //Dado
         List<Odontologo> odontologos;
         // cuando

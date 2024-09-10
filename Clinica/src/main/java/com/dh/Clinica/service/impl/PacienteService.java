@@ -36,6 +36,7 @@ public class PacienteService implements IPacienteService {
     public Optional<Paciente> buscarPorId(Integer id) {
         Optional<Paciente> pacienteEncontrado = pacienteRepository.findById(id);
         if (pacienteEncontrado.isPresent()) {
+            logger.info("Paciente " + pacienteEncontrado);
             return pacienteEncontrado;
         } else {
             throw new ResourceNotFoundException("Paciente no encontrado");
@@ -44,6 +45,7 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public List<Paciente> buscarTodos() {
+        logger.info("Paciente " + pacienteRepository.findAll());
         return pacienteRepository.findAll();
     }
 

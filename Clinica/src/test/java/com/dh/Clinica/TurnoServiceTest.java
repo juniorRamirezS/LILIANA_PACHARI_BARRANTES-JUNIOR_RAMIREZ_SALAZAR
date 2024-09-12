@@ -59,7 +59,7 @@ public class TurnoServiceTest {
         odontologo = new Odontologo();
         odontologo.setApellido("Rodriguez");
         odontologo.setNombre("Rosa");
-        odontologo.setNumeroDeMatricula("48974646");
+        odontologo.setNroMatricula("48974646");
         odontologoDesdeDb = odontologoService.guardarOdontologo(odontologo);
         //   crear turno
         turnoRequestDto = new TurnoRequestDto();

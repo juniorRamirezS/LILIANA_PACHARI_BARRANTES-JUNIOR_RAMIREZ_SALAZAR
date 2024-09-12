@@ -144,7 +144,7 @@ public class TurnoService implements ITurnoService {
 
     private TurnoResponseDto obtenerTurnoResponse(Turno turnoDesdeBD) {
         OdontologoResponseDto odontologoResponseDto = new OdontologoResponseDto(
-                turnoDesdeBD.getOdontologo().getId(), turnoDesdeBD.getOdontologo().getNumeroDeMatricula(),
+                turnoDesdeBD.getOdontologo().getId(), turnoDesdeBD.getOdontologo().getNroMatricula(),
                 turnoDesdeBD.getOdontologo().getApellido(), turnoDesdeBD.getOdontologo().getNombre()
         );
         PacienteResponseDto pacienteResponseDto = new PacienteResponseDto(

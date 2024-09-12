@@ -1,6 +1,5 @@
 package com.dh.Clinica.entity;
 
-import com.dh.Clinica.utils.GsonProvider;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,6 +30,11 @@ public class Odontologo {
 
     @Override
     public String toString() {
-        return GsonProvider.getGson().toJson(this);
+        return "Odontologo{" +
+                "id=" + id +
+                ", numeroDeMatricula='" + numeroDeMatricula + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                '}';
     }
 }

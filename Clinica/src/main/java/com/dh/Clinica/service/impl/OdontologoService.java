@@ -50,8 +50,11 @@ public class OdontologoService implements IOdontologoService {
 
     @Override
     public void modificarOdontologo(Odontologo odontologo) {
-        //para poder modificar es lo mismo q guardar ya q se sobre escribe
-        odontologoRepository.save(odontologo);
+        Optional<Odontologo> odontologoEncontrado = buscarPorId(odontologo.getId());
+        if(odontologoEncontrado.isPresent()){
+            //para poder modificar es lo mismo q guardar ya q se sobre escribe
+            odontologoRepository.save(odontologo);
+        }
     }
 
     @Override

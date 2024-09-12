@@ -24,7 +24,6 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public Paciente guardarPaciente(Paciente paciente) {
-
         if (Objects.nonNull(paciente)) {
             return pacienteRepository.save(paciente);
         } else {
@@ -51,7 +50,10 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public void modificarPaciente(Paciente paciente) {
-        pacienteRepository.save(paciente);
+        Optional<Paciente> pacienteEncontrado = buscarPorId(paciente.getId());
+        if(pacienteEncontrado.isPresent()){
+            pacienteRepository.save(paciente);
+        }
     }
 
 

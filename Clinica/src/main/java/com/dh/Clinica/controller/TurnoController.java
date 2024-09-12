@@ -52,11 +52,7 @@ public class TurnoController {
     @GetMapping("/buscar/{id}")
     public ResponseEntity<TurnoResponseDto> buscarPorId(@PathVariable Integer id) {
         Optional<TurnoResponseDto> turnoEncontrado = turnoService.buscarPorId(id);
-        if (turnoEncontrado.isPresent()) {
-            return ResponseEntity.ok(turnoEncontrado.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(turnoEncontrado.get());
     }
 
 

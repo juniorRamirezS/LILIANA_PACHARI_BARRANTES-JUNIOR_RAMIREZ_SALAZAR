@@ -27,11 +27,8 @@ public class OdontologoController {
     @GetMapping("/buscar/{id}")
     public ResponseEntity<Odontologo> buscarPorId(@PathVariable Integer id){
         Optional<Odontologo> odontologo = odontologoService.buscarPorId(id);
-        if(odontologo.isPresent()){
-            return ResponseEntity.ok(odontologo.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(odontologo.get());
+
     }
 
     @GetMapping("/buscarTodos")
@@ -42,15 +39,9 @@ public class OdontologoController {
 
     @PutMapping("/modificar")
     public ResponseEntity<String>  modificarOdontologo(@RequestBody Odontologo odontologo) {
-
-        Optional<Odontologo> odontologoEncontrado = odontologoService.buscarPorId(odontologo.getId());
-        if(odontologoEncontrado.isPresent()) {
             odontologoService.modificarOdontologo(odontologo);
             String jsonResponse = "{\"mensaje\": \"El odontólogo fue modificado\"}";
             return ResponseEntity.ok(jsonResponse);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
     }
 
     @DeleteMapping("/eliminar/{id}")

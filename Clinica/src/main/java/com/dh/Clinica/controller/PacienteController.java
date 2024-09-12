@@ -36,14 +36,9 @@ public class PacienteController {
     //PUT
     @PutMapping("/modificar")
     public ResponseEntity<String>  modificarPaciente(@RequestBody Paciente paciente){
-        Optional<Paciente> pacienteEncontrado = pacienteService.buscarPorId(paciente.getId());
-        if(pacienteEncontrado.isPresent()){
             pacienteService.modificarPaciente(paciente);
             String jsonResponse = "{\"mensaje\": \"El paciente fue modificado\"}";
             return ResponseEntity.ok(jsonResponse);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
     }
 
     //DELETE
@@ -57,11 +52,7 @@ public class PacienteController {
     @GetMapping("/buscar/{id}")
     public ResponseEntity<Paciente>  buscarPorId(@PathVariable Integer id){
         Optional<Paciente>  pacienteEncontrado = pacienteService.buscarPorId(id);
-        if(pacienteEncontrado.isPresent()) {
-            return ResponseEntity.ok(pacienteEncontrado.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(pacienteEncontrado.get());
     }
 
     //GET

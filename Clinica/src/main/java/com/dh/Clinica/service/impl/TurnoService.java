@@ -64,6 +64,7 @@ public class TurnoService implements ITurnoService {
             // turnoResponseDto = obtenerTurnoResponse(turnoDesdeBD);
             // armado con modelmapper
             turnoResponseDto = convertirTurnoEnResponse(turnoDesdeBD);
+            logger.info("Turno a registrar: " + turnoRequestDto);
             return turnoResponseDto;
         } catch (ResourceNotFoundException e) {
             throw new BadRequestException("Paciente u odontologo no existen en la base de datos");
@@ -75,6 +76,7 @@ public class TurnoService implements ITurnoService {
         Optional<Turno> turno = turnoRepository.findById(id);
         if (turno.isPresent()) {
             TurnoResponseDto turnoRespuesta = convertirTurnoEnResponse(turno.get());
+            logger.info("Turno encontrado por Id: " + turnoRespuesta);
             return Optional.of(turnoRespuesta);
         } else {
             throw new ResourceNotFoundException("El turno no fue encontrado");
@@ -90,10 +92,10 @@ public class TurnoService implements ITurnoService {
             //turnosRespuesta.add(obtenerTurnoResponse(t));
             // model mapper
             TurnoResponseDto turnoRespuesta = convertirTurnoEnResponse(t);
-            logger.info("turno " + turnoRespuesta);
             turnosRespuesta.add(turnoRespuesta);
 
         }
+        logger.info("Lista de turnos: " + turnosRespuesta);
         return turnosRespuesta;
     }
 
@@ -106,13 +108,16 @@ public class TurnoService implements ITurnoService {
                     turnoModifyDto.getId(),
                     paciente.get(), odontologo.get(), LocalDate.parse(turnoModifyDto.getFecha())
             );
+            logger.info("Turno a modificar: " + turno);
             turnoRepository.save(turno);
         }
     }
+
     @Override
-    public void eliminarTurno(Integer id){
+    public void eliminarTurno(Integer id) {
         Optional<TurnoResponseDto> turnoEncontrado = buscarPorId(id);
-        if(turnoEncontrado.isPresent()) {
+        if (turnoEncontrado.isPresent()) {
+            logger.info("Turno a eliminar: " + turnoEncontrado);
             turnoRepository.deleteById(id);
         } else {
             throw new ResourceNotFoundException("Turno no encontrado");
@@ -133,9 +138,10 @@ public class TurnoService implements ITurnoService {
     public Optional<TurnoResponseDto> buscarTurnosPorPaciente(String pacienteApellido) {
         Optional<Turno> turno = turnoRepository.buscarPorApellidoPaciente(pacienteApellido);
         TurnoResponseDto turnoParaResponder = null;
-        if(turno.isPresent()) {
+        if (turno.isPresent()) {
             turnoParaResponder = convertirTurnoEnResponse(turno.get());
         }
+        logger.info("Turno encontrado por paciente: " + turnoParaResponder);
         return Optional.ofNullable(turnoParaResponder);
     }
 
@@ -144,7 +150,7 @@ public class TurnoService implements ITurnoService {
 
     private TurnoResponseDto obtenerTurnoResponse(Turno turnoDesdeBD) {
         OdontologoResponseDto odontologoResponseDto = new OdontologoResponseDto(
-                turnoDesdeBD.getOdontologo().getId(), turnoDesdeBD.getOdontologo().getNroMatricula(),
+                turnoDesdeBD.getOdontologo().getId(), turnoDesdeBD.getOdontologo().getNumeroDeMatricula(),
                 turnoDesdeBD.getOdontologo().getApellido(), turnoDesdeBD.getOdontologo().getNombre()
         );
         PacienteResponseDto pacienteResponseDto = new PacienteResponseDto(
@@ -156,6 +162,7 @@ public class TurnoService implements ITurnoService {
                 pacienteResponseDto, odontologoResponseDto,
                 turnoDesdeBD.getFecha().toString()
         );
+        logger.info("Turno encontrado: " + turnoResponseDto);
         return turnoResponseDto;
     }
 
@@ -164,6 +171,7 @@ public class TurnoService implements ITurnoService {
         TurnoResponseDto turnoResponseDto = modelMapper.map(turno, TurnoResponseDto.class);
         turnoResponseDto.setPacienteResponseDto(modelMapper.map(turno.getPaciente(), PacienteResponseDto.class));
         turnoResponseDto.setOdontologoResponseDto(modelMapper.map(turno.getOdontologo(), OdontologoResponseDto.class));
+        logger.info("Turno: " + turnoResponseDto);
         return turnoResponseDto;
     }
 }

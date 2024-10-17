@@ -31,7 +31,7 @@ class OdontologoServiceTest {
         odontologo = new Odontologo();
         odontologo.setApellido("Rodriguez");
         odontologo.setNombre("Rosa");
-        odontologo.setNroMatricula("48974646");
+        odontologo.setNumeroDeMatricula("48974646");
 
         odontologoDesdeDb = odontologoService.guardarOdontologo(odontologo);
     }

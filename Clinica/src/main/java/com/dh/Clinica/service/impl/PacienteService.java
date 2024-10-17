@@ -25,6 +25,7 @@ public class PacienteService implements IPacienteService {
     @Override
     public Paciente guardarPaciente(Paciente paciente) {
         if (Objects.nonNull(paciente)) {
+            logger.info("Paciente registrado: " + paciente);
             return pacienteRepository.save(paciente);
         } else {
             throw new BadRequestException("Error al guardar paciente");
@@ -35,7 +36,7 @@ public class PacienteService implements IPacienteService {
     public Optional<Paciente> buscarPorId(Integer id) {
         Optional<Paciente> pacienteEncontrado = pacienteRepository.findById(id);
         if (pacienteEncontrado.isPresent()) {
-            logger.info("Paciente: " + pacienteEncontrado);
+            logger.info("Paciente encontrado por Id: " + pacienteEncontrado);
             return pacienteEncontrado;
         } else {
             throw new ResourceNotFoundException("Paciente no encontrado");
@@ -44,7 +45,7 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public List<Paciente> buscarTodos() {
-        logger.info("Pacientes: " + pacienteRepository.findAll());
+        logger.info("Lista de pacientes: " + pacienteRepository.findAll());
         return pacienteRepository.findAll();
     }
 
@@ -52,6 +53,7 @@ public class PacienteService implements IPacienteService {
     public void modificarPaciente(Paciente paciente) {
         Optional<Paciente> pacienteEncontrado = buscarPorId(paciente.getId());
         if(pacienteEncontrado.isPresent()){
+            logger.info("Paciente modificado: " + pacienteEncontrado);
             pacienteRepository.save(paciente);
         }
     }
@@ -61,6 +63,7 @@ public class PacienteService implements IPacienteService {
     public void eliminarPaciente(Integer id) {
         Optional<Paciente> pacienteEncontrado = buscarPorId(id);
         if (pacienteEncontrado.isPresent()) {
+            logger.info("Paciente a eliminar: " + pacienteEncontrado);
             pacienteRepository.deleteById(id);
         } else {
             throw new ResourceNotFoundException("Paciente no encontrado");
@@ -69,11 +72,13 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public List<Paciente> buscarPorApellidoyNombre(String apellido, String nombre) {
+        logger.info("Paciente encontrado por apellido y nombre: " + pacienteRepository.findByApellidoAndNombre(apellido, nombre));
         return pacienteRepository.findByApellidoAndNombre(apellido, nombre);
     }
 
     @Override
     public List<Paciente> buscarPorUnaParteApellido(String parte) {
+        logger.info("Paciente por apellido: " + pacienteRepository.buscarPorParteApellido(parte));
         return pacienteRepository.buscarPorParteApellido(parte);
     }
 
